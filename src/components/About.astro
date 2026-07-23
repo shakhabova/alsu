@@ -1,6 +1,6 @@
 ---
 import Sprig from './Sprig.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, resolvePath } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -23,7 +23,7 @@ const principles = [
   <div class="container about-grid">
     <div class="about-media reveal">
       <div class="portrait">
-        <img src="/images/baby-foot.jpg" alt={lang === 'en' ? "Newborn baby's foot" : "Ножка новорожденного малыша"} class="portrait-img" />
+        <img src={resolvePath('/images/baby-foot.jpg')} alt={lang === 'en' ? "Newborn baby's foot" : "Ножка новорожденного малыша"} class="portrait-img" />
       </div>
       <div class="about-stats">
         {stats.map((s) => (

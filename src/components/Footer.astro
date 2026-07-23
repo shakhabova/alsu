@@ -1,6 +1,6 @@
 ---
 import Sprig from "./Sprig.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getLangFromUrl, useTranslations, resolvePath } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -16,7 +16,10 @@ const links = [
 
 <footer class="footer">
   <div class="container footer-inner">
-    <a href={lang === "en" ? "/en/" : lang === "tr" ? "/tr/" : "/"} class="footer-brand">
+    <a
+      href={lang === "en" ? resolvePath('/en/') : lang === "tr" ? resolvePath('/tr/') : resolvePath('/')}
+      class="footer-brand"
+    >
       <Sprig size={44} strokeWidth={4} />
       <span>
         <strong>Doula Alsu Hakim</strong>
@@ -30,7 +33,6 @@ const links = [
   </div>
   <div class="container footer-base">
     <span>{t("footer.rights").replace("{year}", year.toString())}</span>
-    <span>{t("footer.made_with_care")}</span>
   </div>
 </footer>
 

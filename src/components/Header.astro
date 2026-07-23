@@ -1,6 +1,6 @@
 ---
 import Sprig from "./Sprig.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getLangFromUrl, useTranslations, resolvePath } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -16,7 +16,7 @@ const links = [
 <header class="site-header" id="top">
   <div class="container header-inner">
     <a
-      href={lang === "en" ? "/en/" : lang === "tr" ? "/tr/" : "/"}
+      href={lang === "en" ? resolvePath('/en/') : lang === "tr" ? resolvePath('/tr/') : resolvePath('/')}
       class="brand"
       aria-label="Doula Alsu Hakim"
     >
@@ -34,9 +34,9 @@ const links = [
     <!-- Desktop Lang Selector -->
     <div class="lang-switcher-dropdown header-lang">
       <select class="lang-select" aria-label="Change language">
-        <option value="/" selected={lang === "ru"}>Русский</option>
-        <option value="/en/" selected={lang === "en"}>English</option>
-        <option value="/tr/" selected={lang === "tr"}>Türkçe</option>
+        <option value={resolvePath('/')} selected={lang === "ru"}>Русский</option>
+        <option value={resolvePath('/en/')} selected={lang === "en"}>English</option>
+        <option value={resolvePath('/tr/')} selected={lang === "tr"}>Türkçe</option>
       </select>
     </div>
 
@@ -53,9 +53,9 @@ const links = [
     <!-- Mobile Lang Selector -->
     <div class="lang-switcher-dropdown mobile-lang">
       <select class="lang-select" aria-label="Change language">
-        <option value="/" selected={lang === "ru"}>Русский</option>
-        <option value="/en/" selected={lang === "en"}>English</option>
-        <option value="/tr/" selected={lang === "tr"}>Türkçe</option>
+        <option value={resolvePath('/')} selected={lang === "ru"}>Русский</option>
+        <option value={resolvePath('/en/')} selected={lang === "en"}>English</option>
+        <option value={resolvePath('/tr/')} selected={lang === "tr"}>Türkçe</option>
       </select>
     </div>
   </nav>

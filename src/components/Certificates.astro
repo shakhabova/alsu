@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getLangFromUrl, useTranslations, resolvePath } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -105,10 +105,10 @@ const certificates = [
             <article class="cert-card reveal">
               <div
                 class="cert-image-wrapper"
-                data-src={c.image}
+                data-src={resolvePath(c.image)}
                 data-title={c.title}
               >
-                <img src={c.image} alt={c.title} loading="lazy" />
+                <img src={resolvePath(c.image)} alt={c.title} loading="lazy" />
                 <div class="cert-overlay">
                   <span class="cert-zoom-icon">
                     <svg
@@ -196,7 +196,7 @@ const certificates = [
       <div class="association-header">
         <div class="association-logo-wrapper">
           <img
-            src="/images/certificates/logo_doula.jpg"
+            src={resolvePath('/images/certificates/logo_doula.jpg')}
             alt="АПД"
             class="association-logo"
             loading="lazy"

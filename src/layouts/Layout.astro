@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, resolvePath } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -23,7 +23,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#F4EEE2" />
-    <link rel="icon" type="image/png" href="/images/fav.png" />
+    <link rel="icon" type="image/png" href={resolvePath('/images/fav.png')} />
 
     <!-- Mark JS as available before paint so reveal-animations only
          apply when we can actually run them (no-JS = content visible). -->
