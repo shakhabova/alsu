@@ -1,0 +1,260 @@
+---
+import Sprig from "./Sprig.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const links = [
+  { href: "#about", label: t("nav.about") },
+  { href: "#services", label: t("nav.services") },
+  { href: "#reviews", label: t("nav.reviews") },
+  { href: "#contact", label: t("nav.contact") },
+];
+---
+
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a
+      href={lang === "en" ? "/en/" : lang === "tr" ? "/tr/" : "/"}
+      class="brand"
+      aria-label="Doula Alsu Hakim"
+    >
+      <Sprig size={38} strokeWidth={4} />
+      <span class="brand-text">
+        <span class="brand-name">Doula Alsu Hakim</span>
+        <span class="brand-sub">birth guide</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label={t("nav.menu")}>
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <!-- Desktop Lang Selector -->
+    <div class="lang-switcher-dropdown header-lang">
+      <select class="lang-select" aria-label="Change language">
+        <option value="/" selected={lang === "ru"}>Русский</option>
+        <option value="/en/" selected={lang === "en"}>English</option>
+        <option value="/tr/" selected={lang === "tr"}>Türkçe</option>
+      </select>
+    </div>
+
+    <a href="#contact" class="btn btn--ghost header-cta">{t("nav.book")}</a>
+
+    <button class="burger" aria-label={t("nav.menu")} aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" aria-label={t("nav.menu")}>
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    <a href="#contact" class="btn mobile-cta">{t("nav.book")}</a>
+    <!-- Mobile Lang Selector -->
+    <div class="lang-switcher-dropdown mobile-lang">
+      <select class="lang-select" aria-label="Change language">
+        <option value="/" selected={lang === "ru"}>Русский</option>
+        <option value="/en/" selected={lang === "en"}>English</option>
+        <option value="/tr/" selected={lang === "tr"}>Türkçe</option>
+      </select>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--cream) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid color-mix(in srgb, var(--taupe) 55%, transparent);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 76px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--brown);
+    margin-right: auto;
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.28rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .brand-sub {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--clay);
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  .nav {
+    display: flex;
+    gap: clamp(1.2rem, 2.4vw, 2.4rem);
+  }
+  .nav a {
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    color: var(--brown-soft);
+    position: relative;
+    padding-block: 0.4rem;
+    transition: color 0.3s ease;
+  }
+  .nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--brown);
+    transition: width 0.3s ease;
+  }
+  .nav a:hover {
+    color: var(--brown);
+  }
+  .nav a:hover::after {
+    width: 100%;
+  }
+
+  .header-cta {
+    padding-block: 0.7em;
+  }
+
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .burger span {
+    width: 26px;
+    height: 1.5px;
+    background: var(--brown);
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.5rem var(--pad) 1.6rem;
+    border-top: 1px solid color-mix(in srgb, var(--taupe) 55%, transparent);
+  }
+  .mobile-nav a {
+    padding: 0.7rem 0;
+    font-size: 1.05rem;
+    color: var(--brown-soft);
+  }
+  .mobile-cta {
+    margin-top: 0.6rem;
+    align-self: flex-start;
+  }
+
+  @media (max-width: 860px) {
+    .nav,
+    .header-cta,
+    .header-lang {
+      display: none;
+    }
+    .burger {
+      display: flex;
+    }
+    .site-header.open .mobile-nav {
+      display: flex;
+    }
+    .site-header.open .burger span:first-child {
+      transform: translateY(3.75px) rotate(45deg);
+    }
+    .site-header.open .burger span:last-child {
+      transform: translateY(-3.75px) rotate(-45deg);
+    }
+  }
+
+  /* Language Switcher Dropdown Styling */
+  .lang-switcher-dropdown {
+    display: flex;
+    align-items: center;
+  }
+  .lang-select {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--brown-soft);
+    background-color: transparent;
+    border: 1px solid color-mix(in srgb, var(--taupe) 50%, transparent);
+    border-radius: 6px;
+    padding: 0.35em 1.8rem 0.35em 0.6rem;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b4632' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.45rem center;
+    background-size: 0.75rem;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .lang-select:hover, .lang-select:focus {
+    outline: none;
+    border-color: var(--clay);
+    color: var(--brown);
+  }
+
+  .header-lang {
+    margin-left: auto;
+    margin-right: 0.8rem;
+  }
+
+  .mobile-lang {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid color-mix(in srgb, var(--taupe) 35%, transparent);
+    justify-content: center;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector(".site-header");
+    const burger = header?.querySelector(".burger");
+    burger?.addEventListener("click", () => {
+      const open = header.classList.toggle("open");
+      burger.setAttribute("aria-expanded", String(open));
+    });
+    header?.querySelectorAll(".mobile-nav a").forEach((a) =>
+      a.addEventListener("click", () => {
+        header.classList.remove("open");
+        burger?.setAttribute("aria-expanded", "false");
+      }),
+    );
+    
+    // Redirection handler on language selection change
+    header?.querySelectorAll(".lang-select").forEach((select) => {
+      select.addEventListener("change", (e) => {
+        window.location.href = e.target.value;
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,392 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const reviews = [
+  {
+    text: t('reviews.rev1.text'),
+    name: t('reviews.rev1.name'),
+    detail: t('reviews.rev1.detail'),
+  },
+  {
+    text: t('reviews.rev2.text'),
+    name: t('reviews.rev2.name'),
+    detail: t('reviews.rev2.detail'),
+  },
+  {
+    text: t('reviews.rev3.text'),
+    name: t('reviews.rev3.name'),
+    detail: t('reviews.rev3.detail'),
+  },
+  {
+    text: t('reviews.rev4.text'),
+    name: t('reviews.rev4.name'),
+    detail: t('reviews.rev4.detail'),
+  },
+];
+
+const initialsSeparator = lang === 'en' ? ' & ' : ' и ';
+const getInitials = (name) => {
+  if (name.includes(initialsSeparator)) {
+    const parts = name.split(initialsSeparator);
+    return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
+  }
+  return name.charAt(0).toUpperCase();
+};
+---
+
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <div class="reviews-head reveal">
+      <span class="eyebrow eyebrow--light">{t('reviews.eyebrow')}</span>
+      <h2 class="section-title">{t('reviews.title')}</h2>
+    </div>
+
+    <div class="carousel reveal" data-carousel>
+      <ul class="carousel-track" data-track aria-label={t('reviews.carousel_label')} tabindex="0">
+        {reviews.map((r, i) => (
+          <li class="slide" role="group" aria-roledescription="слайд" aria-label={lang === 'en' ? `${i + 1} of ${reviews.length}` : `${i + 1} из ${reviews.length}`}>
+            <article class="review-card">
+              <div class="review-card-header">
+                <div class="rating" aria-label={lang === 'en' ? "5 stars" : "5 звезд"}>
+                  {[1, 2, 3, 4, 5].map(() => (
+                    <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="var(--clay)" stroke="var(--clay)"></polygon>
+                    </svg>
+                  ))}
+                </div>
+                <span class="quote-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.192 15.757c0-.907-.188-1.754-.565-2.54.565-.544 1.13-1.27 1.694-2.177.566-.906.848-1.813.848-2.72 0-.996-.282-1.754-.848-2.276-.564-.52-1.27-.78-2.117-.78-.996 0-1.813.344-2.54 1.033-.727.689-1.09 1.57-1.09 2.64 0 .907.18 1.754.542 2.54-.564.543-1.11 1.258-1.638 2.143-.53.884-.794 1.79-.794 2.72 0 .996.28 1.753.84 2.275.56.521 1.252.782 2.078.782.996 0 1.833-.352 2.51-1.056.677-.703 1.016-1.576 1.016-2.618zm9 0c0-.907-.188-1.754-.566-2.54.565-.544 1.13-1.27 1.695-2.177.564-.906.847-1.813.847-2.72 0-.996-.283-1.754-.847-2.276-.565-.52-1.27-.78-2.118-.78-.995 0-1.812.344-2.539 1.033-.728.689-1.09 1.57-1.09 2.64 0 .907.18 1.754.543 2.54-.565.543-1.11 1.258-1.638 2.143-.53.884-.795 1.79-.795 2.72 0 .996.281 1.753.842 2.275.56.521 1.252.782 2.077.782.996 0 1.833-.352 2.511-1.056.676-.703 1.015-1.576 1.015-2.618z"/>
+                  </svg>
+                </span>
+              </div>
+              <blockquote class="review-text">{r.text}</blockquote>
+              <div class="review-author">
+                <div class="avatar" aria-hidden="true">
+                  {getInitials(r.name)}
+                </div>
+                <div class="author-meta">
+                  <cite class="author-name">{r.name}</cite>
+                  <span class="author-detail">{r.detail}</span>
+                </div>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+
+      <div class="carousel-controls">
+        <button class="c-arrow" data-prev type="button" aria-label={t('reviews.prev')}>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+
+        <div class="c-dots" data-dots role="tablist" aria-label={t('reviews.dots_nav')}>
+          {reviews.map((_, i) => (
+            <button class="c-dot" type="button" role="tab" data-dot={i} aria-label={lang === 'en' ? `Review ${i + 1}` : `Отзыв ${i + 1}`}></button>
+          ))}
+        </div>
+
+        <button class="c-arrow" data-next type="button" aria-label={t('reviews.next')}>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    background: radial-gradient(circle at 80% 20%, rgba(183, 159, 130, 0.15), transparent 50%),
+                radial-gradient(circle at 10% 80%, rgba(108, 110, 88, 0.12), transparent 45%),
+                linear-gradient(180deg, #302419 0%, #241a11 100%);
+    color: var(--cream);
+    overflow: hidden;
+    position: relative;
+  }
+  .reviews-head { max-width: 620px; margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+  .reviews-head .section-title { color: var(--cream); }
+  .eyebrow--light { color: var(--clay); }
+
+  /* ---------- Carousel ---------- */
+  .carousel { position: relative; }
+
+  .carousel-track {
+    list-style: none;
+    margin: 0;
+    padding: 1.2rem 0 1.2rem;
+    display: flex;
+    gap: 1.8rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;               /* Firefox */
+    -webkit-overflow-scrolling: touch;
+    /* fade edges */
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
+  .carousel-track:focus-visible { outline: 2px solid var(--clay); outline-offset: 6px; border-radius: 24px; }
+
+  .slide {
+    flex: 0 0 min(460px, 86%);
+    scroll-snap-align: start;
+  }
+
+  .review-card {
+    position: relative;
+    height: 100%;
+    padding: 2.8rem 2.4rem 2.4rem;
+    border: 1px solid rgba(231, 221, 203, 0.12);
+    border-radius: 24px;
+    background: rgba(251, 248, 241, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                background 0.4s ease,
+                box-shadow 0.4s ease;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
+  }
+  .review-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(231, 221, 203, 0.28);
+    background: rgba(251, 248, 241, 0.06);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.35);
+  }
+
+  .review-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.8rem;
+  }
+  .rating {
+    display: flex;
+    gap: 0.3rem;
+  }
+  .star-icon {
+    width: 15px;
+    height: 15px;
+  }
+  .quote-icon {
+    width: 32px;
+    height: 32px;
+    color: rgba(183, 159, 130, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .review-text {
+    margin: 0 0 2rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--cream) 92%, transparent);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.01em;
+  }
+
+  .review-author {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(231, 221, 203, 0.1);
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--clay);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  .author-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .author-name {
+    font-style: normal;
+    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: var(--cream);
+  }
+  .author-detail {
+    font-size: 0.8rem;
+    color: var(--clay);
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- Controls ---------- */
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+    margin-top: 3rem;
+  }
+  .c-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--cream);
+    border: 1px solid rgba(183, 159, 130, 0.35);
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: all .35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .c-arrow:hover {
+    background: var(--clay);
+    color: var(--brown-deep);
+    border-color: var(--clay);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  .c-arrow:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; }
+
+  .c-dots { display: flex; align-items: center; gap: 0.6rem; }
+  .c-dot {
+    width: 9px; height: 9px;
+    padding: 0;
+    border-radius: 50%;
+    border: 0;
+    background: color-mix(in srgb, var(--clay) 45%, transparent);
+    cursor: pointer;
+    transition: transform .3s ease, background .3s ease, width .3s ease;
+  }
+  .c-dot:hover { background: color-mix(in srgb, var(--clay) 75%, transparent); }
+  .c-dot[aria-selected='true'] {
+    background: var(--cream);
+    width: 26px;
+    border-radius: 999px;
+  }
+  .c-dot:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; }
+
+  @media (max-width: 620px) {
+    .slide { flex-basis: 88%; }
+    .review-card { padding: 2.2rem 1.8rem 1.8rem; }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    document.querySelectorAll('[data-carousel]').forEach((root) => {
+      const track = root.querySelector('[data-track]');
+      const slides = Array.from(track.children);
+      const dots = Array.from(root.querySelectorAll('[data-dot]'));
+      const prev = root.querySelector('[data-prev]');
+      const next = root.querySelector('[data-next]');
+      if (!slides.length) return;
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let current = 0;
+      let landTimer = 0;
+
+      const targetFor = (idx) => {
+        const max = track.scrollWidth - track.clientWidth;
+        return Math.max(0, Math.min(slides[idx].offsetLeft - track.offsetLeft, max));
+      };
+
+      const goTo = (i) => {
+        const idx = (i + slides.length) % slides.length;
+        const target = targetFor(idx);
+        current = idx;
+        dots.forEach((d, k) => d.setAttribute('aria-selected', String(k === idx)));
+
+        if (reduce) {
+          track.scrollTo({ left: target, behavior: 'auto' });
+          return;
+        }
+        // Disable snap during the move so `mandatory` snap can't fight the
+        // programmatic scroll, attempt a native smooth scroll, then guarantee
+        // the final position even if the browser doesn't animate it.
+        track.style.scrollSnapType = 'none';
+        track.scrollTo({ left: target, behavior: 'smooth' });
+        clearTimeout(landTimer);
+        landTimer = setTimeout(() => {
+          track.scrollTo({ left: target, behavior: 'auto' });
+          track.style.scrollSnapType = '';
+        }, 520);
+      };
+
+      // Reflect current slide in dots + aria while the user scrolls.
+      const sync = () => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let best = 0, bestDist = Infinity;
+        slides.forEach((s, i) => {
+          const c = s.offsetLeft - track.offsetLeft + s.offsetWidth / 2;
+          const d = Math.abs(c - center);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        current = best;
+        dots.forEach((d, i) => d.setAttribute('aria-selected', String(i === best)));
+      };
+
+      let raf = 0;
+      track.addEventListener('scroll', () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(sync);
+      }, { passive: true });
+
+      prev.addEventListener('click', () => { goTo(current - 1); resume(); });
+      next.addEventListener('click', () => { goTo(current + 1); resume(); });
+      dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); resume(); }));
+
+      // Keyboard support on the track itself.
+      track.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); resume(); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); resume(); }
+      });
+
+      // Gentle autoplay — paused on hover, focus or when the tab is hidden.
+      let timer = 0;
+      const AUTOPLAY = 6000;
+      const stop = () => { clearInterval(timer); timer = 0; };
+      const start = () => {
+        if (reduce || timer) return;
+        timer = setInterval(() => {
+          if (document.hidden) return;
+          goTo(current + 1);
+        }, AUTOPLAY);
+      };
+      let idleTimer = 0;
+      const resume = () => { stop(); clearTimeout(idleTimer); idleTimer = setTimeout(start, 4000); };
+
+      ['pointerenter', 'focusin'].forEach((ev) => root.addEventListener(ev, stop));
+      ['pointerleave', 'focusout'].forEach((ev) => root.addEventListener(ev, resume));
+
+      // Only autoplay once the carousel is actually on screen.
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entries) => {
+          entries.forEach((e) => (e.isIntersecting ? start() : stop()));
+        }, { threshold: 0.3 }).observe(root);
+      } else {
+        start();
+      }
+
+      sync();
+    });
+  })();
+</script>

@@ -1,0 +1,334 @@
+---
+import Sprig from "./Sprig.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const channels = [
+  {
+    label: t("contact.phone"),
+    value: "+90 534 606 84 49",
+    href: "tel:+905346068449",
+  },
+  { label: "Telegram", value: "@doula_alsu", href: "https://t.me/doula_alsu" },
+  {
+    label: "WhatsApp",
+    value: "+90 534 606 84 49",
+    href: "https://wa.me/905346068449",
+  },
+  {
+    label: "Instagram",
+    value: "@doula.alsu.hakim",
+    href: "https://www.instagram.com/doula.alsu.hakim?igsh=MWNxNW01c2ZzbWxibg==",
+  },
+];
+---
+
+<section class="section contact" id="contact">
+  <div class="container contact-container">
+    <div class="contact-aside reveal">
+      <div class="contact-mark"><Sprig size={56} strokeWidth={3} /></div>
+      <span class="eyebrow">{t("contact.eyebrow")}</span>
+      <h2 class="section-title">{t("contact.title")}</h2>
+      <p class="contact-lead">
+        {t("contact.lead")}
+      </p>
+
+      <ul class="channels">
+        {
+          channels.map((c) => (
+            <li>
+              <span class="ch-label">{c.label}</span>
+              <a href={c.href} class="ch-value" target="_blank" rel="noopener">
+                {c.value}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="contact-city">
+        {t("contact.city")}
+      </p>
+    </div>
+
+    <form class="contact-form reveal" id="lead-form" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="service">{t("contact.form.service")}</label>
+          <select id="service" name="service" required>
+            <option value="">{t("contact.form.service_placeholder")}</option>
+            <option value="Знакомство">{t("contact.option.service1")}</option>
+            <option value="Подготовка к родам"
+              >{t("contact.option.service2")}</option
+            >
+            <option value="Сопровождение в родах"
+              >{t("contact.option.service3")}</option
+            >
+            <option value="Ведение беременности"
+              >{t("contact.option.service4")}</option
+            >
+            <option value="Послеродовая поддержка"
+              >{t("contact.option.service5")}</option
+            >
+            <option value="Онлайн-консультация"
+              >{t("contact.option.service6")}</option
+            >
+            <option value="Другой формат"
+              >{t("contact.option.service_other")}</option
+            >
+          </select>
+        </div>
+        <div class="field">
+          <label for="term">{t("contact.form.term")}</label>
+          <select id="term" name="term">
+            <option value="">{t("contact.form.term_placeholder")}</option>
+            <option value="Планирую">{t("contact.option.term_planning")}</option
+            >
+            <option value="1 триместр">{t("contact.option.term_t1")}</option>
+            <option value="2 триместр">{t("contact.option.term_t2")}</option>
+            <option value="3 триместр">{t("contact.option.term_t3")}</option>
+            <option value="Уже родила">{t("contact.option.term_done")}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="message">{t("contact.form.message")}</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          required
+          placeholder={t("contact.form.message_placeholder")}></textarea>
+      </div>
+
+      <button type="submit" class="btn form-submit"
+        >{t("contact.form.submit")}</button
+      >
+      <p class="form-hint" id="form-status" role="status" aria-live="polite">
+        {
+          lang === "ru"
+            ? "Вы будете перенаправлены в WhatsApp для отправки сообщения."
+            : "You will be redirected to WhatsApp to send the message."
+        }
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--cream);
+  }
+  .contact-container {
+    max-width: 780px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .contact-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-mark {
+    color: var(--clay);
+    margin-bottom: 1.4rem;
+  }
+  .contact-lead {
+    color: var(--brown-soft);
+    margin: 1.2rem 0 2rem;
+    max-width: 46ch;
+  }
+
+  .channels {
+    list-style: none;
+    margin: 0 0 1.6rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1.2rem, 3vw, 2.5rem);
+    width: 100%;
+  }
+  .channels li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--taupe) 55%, transparent);
+    min-width: 140px;
+  }
+  .ch-label {
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+  .ch-value {
+    font-size: 1.12rem;
+    color: var(--brown);
+    transition: color 0.3s ease;
+  }
+  .ch-value:hover {
+    color: var(--clay);
+  }
+  .contact-city {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--brown-soft);
+    font-size: 1.1rem;
+  }
+
+  .contact-form {
+    background: var(--cream-soft);
+    border: 1px solid color-mix(in srgb, var(--taupe) 55%, transparent);
+    border-radius: 20px;
+    padding: clamp(1.6rem, 3vw, 2.6rem);
+    display: grid;
+    gap: 1.4rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+  label {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brown-soft);
+    text-align: left;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--brown);
+    background: var(--white);
+    border: 1px solid color-mix(in srgb, var(--taupe) 70%, transparent);
+    border-radius: 10px;
+    padding: 0.85em 1em;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+    width: 100%;
+  }
+  textarea {
+    resize: vertical;
+  }
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b4632' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1.25rem center;
+    background-size: 1.1rem;
+    padding-right: 3rem;
+    cursor: pointer;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--clay);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--clay) 22%, transparent);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: color-mix(in srgb, var(--brown-soft) 55%, transparent);
+  }
+
+  .form-submit {
+    margin-top: 0.4rem;
+    justify-self: center;
+  }
+  .form-hint {
+    font-size: 0.8rem;
+    color: var(--brown-soft);
+    margin: 0;
+    text-align: center;
+  }
+  .form-hint.ok {
+    color: var(--olive);
+    font-weight: 400;
+  }
+  .form-hint.err {
+    color: #a5482f;
+  }
+
+  @media (max-width: 860px) {
+    .field-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById("lead-form");
+    const status = document.getElementById("form-status");
+    if (!form) return;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const service = form.service.value;
+      const term = form.term.value;
+      const message = form.message.value.trim();
+      const isEn = document.documentElement.lang === "en";
+
+      if (!service || !message) {
+        status.textContent = isEn
+          ? "Please select a service and write a message."
+          : "Пожалуйста, выберите услугу и напишите сообщение.";
+        status.className = "form-hint err";
+        return;
+      }
+
+      const intro = isEn
+        ? "Hello! I would like to inquire about your doula services."
+        : "Здравствуйте! Хочу узнать подробнее о ваших услугах доулы.";
+      const serviceLabel = isEn ? "Service" : "Услуга";
+      const termLabel = isEn ? "Term/Stage" : "Срок/Этап";
+      const messageLabel = isEn ? "Message" : "Сообщение";
+
+      let text = `${intro}\n\n*${serviceLabel}:* ${service}`;
+      if (term) {
+        text += `\n*${termLabel}:* ${term}`;
+      }
+      text += `\n*${messageLabel}:* ${message}`;
+
+      const phone = "905346068449";
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+      status.textContent = isEn
+        ? "Redirecting to WhatsApp..."
+        : "Перенаправление в WhatsApp...";
+      status.className = "form-hint ok";
+
+      window.open(url, "_blank");
+      form.reset();
+
+      setTimeout(() => {
+        status.textContent = isEn
+          ? "You will be redirected to WhatsApp to send the message."
+          : "Вы будете перенаправлены в WhatsApp для отправки сообщения.";
+        status.className = "form-hint";
+      }, 3000);
+    });
+  })();
+</script>

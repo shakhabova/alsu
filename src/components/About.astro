@@ -1,0 +1,256 @@
+---
+import Sprig from './Sprig.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const stats = [
+  { value: t('about.stat1.val'), label: t('about.stat1.lbl') },
+  { value: t('about.stat2.val'), label: t('about.stat2.lbl') },
+  { value: t('about.stat3.val'), label: t('about.stat3.lbl') },
+];
+
+const principles = [
+  t('about.principle1'),
+  t('about.principle2'),
+  t('about.principle3'),
+  t('about.principle4'),
+];
+---
+
+<section class="section about" id="about">
+  <div class="container about-grid">
+    <div class="about-media reveal">
+      <div class="portrait">
+        <img src="/images/baby-foot.jpg" alt={lang === 'en' ? "Newborn baby's foot" : "Ножка новорожденного малыша"} class="portrait-img" />
+      </div>
+      <div class="about-stats">
+        {stats.map((s) => (
+          <div class="stat">
+            <span class="stat-value">{s.value}</span>
+            <span class="stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="about-text reveal">
+      <span class="eyebrow">{t('about.eyebrow')}</span>
+      <h2 class="section-title">{t('about.title')}</h2>
+      <p class="lead">
+        {t('about.lead')}
+      </p>
+      <p>
+        {t('about.text1')}
+      </p>
+      <p>
+        {t('about.text2')}
+      </p>
+
+      <ul class="principles">
+        {principles.map((p) => <li>{p}</li>)}
+      </ul>
+
+      <a href="#contact" class="btn">{t('about.btn')}</a>
+    </div>
+  </div>
+
+  <div class="about-divider container reveal">
+    <hr class="divider-line" />
+    <span class="divider-icon">
+      <Sprig size={32} strokeWidth={3} />
+    </span>
+    <hr class="divider-line" />
+  </div>
+
+  <div class="container about-story reveal">
+    <div class="story-grid">
+      <div class="story-text">
+        <h3 class="story-title">{t('about.story.title')}</h3>
+        <p class="story-welcome">{t('about.story.welcome')}</p>
+        <p>{t('about.story.path')}</p>
+        <p>{t('about.story.experience')}</p>
+      </div>
+      <div class="story-mission">
+        <div class="mission-card">
+          <p class="mission-text">«{t('about.story.mission')}»</p>
+          <p class="mission-goal">{t('about.story.goal')}</p>
+          <p class="mission-call">{t('about.story.call')}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { background: var(--cream); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .about-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: clamp(3rem, 8vh, 6rem) auto;
+    opacity: 0.6;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    border: none;
+    background: linear-gradient(to right, transparent, var(--taupe) 50%, transparent);
+  }
+  .divider-icon {
+    color: var(--clay);
+    display: flex;
+    align-items: center;
+  }
+
+  .about-story {
+    margin-top: 2rem;
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+  .story-title {
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    color: var(--brown);
+    margin-bottom: 1.6rem;
+  }
+  .story-welcome {
+    font-size: 1.15rem;
+    color: var(--brown);
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+  .story-text p {
+    font-size: 1rem;
+    color: var(--brown-soft);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .story-mission {
+    position: relative;
+  }
+  .mission-card {
+    background: color-mix(in srgb, var(--sand) 15%, var(--cream) 85%);
+    border: 1px solid color-mix(in srgb, var(--taupe) 30%, transparent);
+    padding: clamp(2rem, 4vw, 3rem);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px -20px rgba(58, 42, 30, 0.15);
+  }
+  .mission-text {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: var(--brown);
+    line-height: 1.6;
+    margin-bottom: 1.4rem;
+  }
+  .mission-goal {
+    font-size: 0.94rem;
+    color: var(--brown-soft);
+    line-height: 1.6;
+    margin-bottom: 1.6rem;
+  }
+  .mission-call {
+    font-size: 0.94rem;
+    color: var(--clay);
+    font-weight: 600;
+    line-height: 1.6;
+    border-top: 1px dashed color-mix(in srgb, var(--taupe) 60%, transparent);
+    padding-top: 1.2rem;
+    margin-bottom: 0;
+  }
+
+  .portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 200px 200px 14px 14px;
+    box-shadow: 0 30px 60px -30px rgba(58,42,30,.5);
+    overflow: hidden;
+  }
+  .portrait::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(60% 60% at 50% 40%, transparent, rgba(44,32,21,.25));
+    pointer-events: none;
+  }
+  .portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.6rem;
+  }
+  .stat {
+    text-align: center;
+    padding: 1rem 0.4rem;
+    border: 1px solid color-mix(in srgb, var(--taupe) 60%, transparent);
+    border-radius: 12px;
+  }
+  .stat-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    color: var(--brown);
+    line-height: 1;
+  }
+  .stat-label {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    color: var(--brown-soft);
+  }
+
+  .about-text p { margin: 1rem 0; color: var(--brown-soft); }
+  .about-text .lead { margin-top: 1.4rem; color: var(--brown); }
+
+  .principles {
+    list-style: none;
+    margin: 1.8rem 0 2rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem 1.4rem;
+  }
+  .principles li {
+    position: relative;
+    padding-left: 1.6rem;
+    font-size: 0.98rem;
+    color: var(--brown-soft);
+  }
+  .principles li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.6em;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--clay);
+  }
+
+  @media (max-width: 860px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .portrait { max-width: 340px; margin-inline: auto; }
+    .principles { grid-template-columns: 1fr; }
+    .story-grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+</style>

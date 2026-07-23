@@ -1,0 +1,99 @@
+---
+import Sprig from "./Sprig.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const year = new Date().getFullYear();
+const links = [
+  { href: "#about", label: t("nav.about") },
+  { href: "#services", label: t("nav.services") },
+  { href: "#reviews", label: t("nav.reviews") },
+  { href: "#contact", label: t("nav.contact") },
+];
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <a href={lang === "en" ? "/en/" : lang === "tr" ? "/tr/" : "/"} class="footer-brand">
+      <Sprig size={44} strokeWidth={4} />
+      <span>
+        <strong>Doula Alsu Hakim</strong>
+        <em>birth guide</em>
+      </span>
+    </a>
+
+    <nav class="footer-nav" aria-label={t("nav.menu")}>
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+  </div>
+  <div class="container footer-base">
+    <span>{t("footer.rights").replace("{year}", year.toString())}</span>
+    <span>{t("footer.made_with_care")}</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--brown-deep);
+    color: color-mix(in srgb, var(--cream) 80%, transparent);
+    padding-block: 3rem 1.6rem;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--clay) 30%, transparent);
+  }
+  .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--sand);
+  }
+  .footer-brand span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .footer-brand strong {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    color: var(--cream);
+  }
+  .footer-brand em {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--clay);
+  }
+  .footer-nav {
+    display: flex;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+  }
+  .footer-nav a {
+    font-size: 0.9rem;
+    color: color-mix(in srgb, var(--cream) 78%, transparent);
+    transition: color 0.3s;
+  }
+  .footer-nav a:hover {
+    color: var(--cream);
+  }
+
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.4rem;
+    font-size: 0.8rem;
+    color: color-mix(in srgb, var(--cream) 55%, transparent);
+  }
+</style>
