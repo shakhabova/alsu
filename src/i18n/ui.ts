@@ -192,6 +192,17 @@ export const ui = {
     // Footer
     'footer.rights': '© {year} Doula Alsu Hakim. Все права защищены.',
     'footer.made_with_care': 'Сделано с заботой ✦',
+
+    // Recommendation
+    'recommendation.eyebrow': 'Сотрудничество',
+    'recommendation.title': 'Рекомендуемый специалист',
+    'recommendation.intro': 'Я регулярно сотрудничаю с квалифицированными врачами в Стамбуле. Для бережного ведения беременности и родов я рада рекомендовать вам специалиста, разделяющего мои ценности:',
+    'recommendation.doctorName': 'Д-р Айше Йылмаз',
+    'recommendation.doctorTitle': 'Врач акушер-гинеколог',
+    'recommendation.doctorInfo': 'Специализируется на естественных и мягких родах, бережном ведении беременности и научно обоснованной медицине. Всегда поддерживает осознанный выбор женщины в родах и создаёт атмосферу безопасности. Проводит консультации как онлайн, так и офлайн.',
+    'recommendation.contactsTitle': 'Контакты для связи:',
+    'recommendation.contactLocation': 'Онлайн-консультации · офлайн-приём в клинике (Стамбул)',
+    'recommendation.contactPhone': '+90 (555) 123-45-67',
   },
   en: {
     // Navigation / Header
@@ -378,6 +389,17 @@ export const ui = {
     // Footer
     'footer.rights': '© {year} Doula Alsu Hakim. All rights reserved.',
     'footer.made_with_care': 'Made with care ✦',
+
+    // Recommendation
+    'recommendation.eyebrow': 'Collaboration',
+    'recommendation.title': 'Recommended Specialist',
+    'recommendation.intro': 'I regularly collaborate with qualified doctors in Istanbul. For gentle pregnancy care and childbirth, I am happy to recommend a specialist who shares my values:',
+    'recommendation.doctorName': 'Dr. Ayşe Yılmaz',
+    'recommendation.doctorTitle': 'Obstetrician-Gynecologist (OB/GYN)',
+    'recommendation.doctorInfo': 'Specializes in natural and gentle births, gentle pregnancy management, and evidence-based medicine. She always supports the mother\'s informed choices in childbirth and creates an atmosphere of safety. Offers both online and offline consultations.',
+    'recommendation.contactsTitle': 'Contact details:',
+    'recommendation.contactLocation': 'Online consultations · offline visits at the clinic (Istanbul)',
+    'recommendation.contactPhone': '+90 (555) 123-45-67',
   },
   tr: {
     // Navigation / Header
@@ -564,5 +586,16 @@ export const ui = {
     // Footer
     'footer.rights': '© {year} Doula Alsu Hakim. Tüm hakları saklıdır.',
     'footer.made_with_care': 'Sevgiyle yapıldı ✦',
+
+    // Recommendation
+    'recommendation.eyebrow': 'İşbirliği',
+    'recommendation.title': 'Önerilen Uzman',
+    'recommendation.intro': 'İstanbul\'daki nitelikli hekimlerle düzenli olarak işbirliği yapıyorum. Nazik gebelik takibi ve doğum süreci için, benimle aynı değerleri paylaşan bir uzmanı tavsiye etmekten mutluluk duyarım:',
+    'recommendation.doctorName': 'Dr. Ayşe Yılmaz',
+    'recommendation.doctorTitle': 'Kadın Hastalıkları ve Doğum Uzmanı',
+    'recommendation.doctorInfo': 'Doğal ve yumuşak doğum, nazik gebelik takibi ve kanıta dayalı tıp alanında uzmandır. Doğumda kadının bilinçli tercihlerini her zaman destekler ve güvenli bir ortam sunar. Hem çevrimiçi (online) hem de yüz yüze (offline) danışmanlık hizmeti vermektedir.',
+    'recommendation.contactsTitle': 'İletişim Bilgileri:',
+    'recommendation.contactLocation': 'Çevrimiçi danışmanlık · İstanbul\'da klinikte yüz yüze görüşme',
+    'recommendation.contactPhone': '+90 (555) 123-45-67',
   },
 } as const;

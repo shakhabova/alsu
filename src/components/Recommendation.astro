@@ -1,0 +1,230 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="section recommendation" id="recommendation">
+  <div class="container recommendation-grid">
+    
+    <div class="recommendation-text reveal">
+      <span class="eyebrow">{t('recommendation.eyebrow')}</span>
+      <h2 class="section-title">{t('recommendation.title')}</h2>
+      
+      <p class="lead recommendation-intro">
+        {t('recommendation.intro')}
+      </p>
+      
+      <div class="doctor-card">
+        <div class="doctor-card-header">
+          <h3 class="doctor-name">{t('recommendation.doctorName')}</h3>
+          <span class="doctor-badge">{t('recommendation.doctorTitle')}</span>
+        </div>
+        <p class="doctor-info">
+          {t('recommendation.doctorInfo')}
+        </p>
+      </div>
+      
+      <div class="contacts-block">
+        <h4 class="contacts-title">{t('recommendation.contactsTitle')}</h4>
+        <div class="contact-items">
+          <div class="contact-item">
+            <span class="contact-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </span>
+            <span class="contact-text">{t('recommendation.contactLocation')}</span>
+          </div>
+          
+          <a href={`tel:${t('recommendation.contactPhone').replace(/[^+\d]/g, '')}`} class="contact-item contact-link-phone">
+            <span class="contact-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </span>
+            <span class="contact-text font-medium">{t('recommendation.contactPhone')}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+<style>
+  .recommendation {
+    background: var(--cream-soft);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .recommendation-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .recommendation-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .recommendation-intro {
+    margin-top: 1.2rem;
+    margin-bottom: 1.8rem;
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--brown-soft);
+  }
+
+  .doctor-card {
+    background: var(--white);
+    border: 1px solid var(--taupe);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px -15px rgba(58, 42, 30, 0.08);
+  }
+
+  .doctor-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--taupe) 40%, transparent);
+    padding-bottom: 0.8rem;
+  }
+
+  .doctor-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    color: var(--brown);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .doctor-badge {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .doctor-info {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--brown-soft);
+    margin: 0;
+  }
+
+  .contacts-block {
+    width: 100%;
+  }
+
+  .contacts-title {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--brown-soft);
+    font-size: 0.96rem;
+  }
+
+  .contact-link-phone {
+    transition: color 0.3s ease, transform 0.3s ease;
+    align-self: flex-start;
+  }
+
+  .contact-link-phone:hover {
+    color: var(--brown);
+    transform: translateX(4px);
+  }
+
+  .contact-icon {
+    color: var(--clay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-text {
+    line-height: 1.4;
+  }
+
+  .font-medium {
+    font-weight: 500;
+  }
+
+
+
+  .illust-frame {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--sand) 30%, var(--cream) 70%);
+    border: 1px dashed var(--taupe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+    box-shadow: inset 0 0 20px rgba(58, 42, 30, 0.03);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .illust-frame:hover {
+    transform: scale(1.03);
+  }
+
+  .illust-img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    mix-blend-mode: multiply; /* Blends illustration with the round background */
+    opacity: 0.85;
+  }
+
+  @media (max-width: 860px) {
+    .recommendation-grid {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+
+    .recommendation-media {
+      order: -1; /* Display illustration first on mobile for editorial feel */
+    }
+
+    .illust-frame {
+      max-width: 260px;
+      padding: 1.8rem;
+    }
+  }
+</style>
