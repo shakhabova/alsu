@@ -17,14 +17,21 @@ const links = [
 <footer class="footer">
   <div class="container footer-inner">
     <a
-      href={lang === "en" ? resolvePath('/en/') : lang === "tr" ? resolvePath('/tr/') : resolvePath('/')}
+      href={lang === "en"
+        ? resolvePath("/en/")
+        : lang === "tr"
+          ? resolvePath("/tr/")
+          : resolvePath("/")}
       class="footer-brand"
+      aria-label="Doula Alsu Hakim"
     >
-      <Sprig size={44} strokeWidth={4} />
-      <span>
-        <strong>Doula Alsu Hakim</strong>
-        <em>birth guide</em>
-      </span>
+      <img
+        src={resolvePath("/images/logo/logo7.png")}
+        alt="Logo"
+        width="80"
+        height="80"
+        style="vertical-align: middle;"
+      />
     </a>
 
     <nav class="footer-nav" aria-label={t("nav.menu")}>
