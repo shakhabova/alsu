@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://shakhabova.github.io',
-  base: '/alsu',
+  site: 'https://alsuhakim.com',
   i18n: {
     defaultLocale: 'ru',
     locales: ['ru', 'en', 'tr'],

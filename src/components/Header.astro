@@ -16,15 +16,21 @@ const links = [
 <header class="site-header" id="top">
   <div class="container header-inner">
     <a
-      href={lang === "en" ? resolvePath('/en/') : lang === "tr" ? resolvePath('/tr/') : resolvePath('/')}
+      href={lang === "en"
+        ? resolvePath("/en/")
+        : lang === "tr"
+          ? resolvePath("/tr/")
+          : resolvePath("/")}
       class="brand"
       aria-label="Doula Alsu Hakim"
     >
-      <Sprig size={38} strokeWidth={4} />
-      <span class="brand-text">
-        <span class="brand-name">Doula Alsu Hakim</span>
-        <span class="brand-sub">birth guide</span>
-      </span>
+      <img
+        src={resolvePath("/images/logo/logo4.png")}
+        alt="Logo"
+        width="80"
+        height="80"
+        style="vertical-align: middle;"
+      />
     </a>
 
     <nav class="nav" aria-label={t("nav.menu")}>
@@ -34,9 +40,15 @@ const links = [
     <!-- Desktop Lang Selector -->
     <div class="lang-switcher-dropdown header-lang">
       <select class="lang-select" aria-label="Change language">
-        <option value={resolvePath('/')} selected={lang === "ru"}>Русский</option>
-        <option value={resolvePath('/en/')} selected={lang === "en"}>English</option>
-        <option value={resolvePath('/tr/')} selected={lang === "tr"}>Türkçe</option>
+        <option value={resolvePath("/")} selected={lang === "ru"}
+          >Русский</option
+        >
+        <option value={resolvePath("/en/")} selected={lang === "en"}
+          >English</option
+        >
+        <option value={resolvePath("/tr/")} selected={lang === "tr"}
+          >Türkçe</option
+        >
       </select>
     </div>
 
@@ -53,9 +65,15 @@ const links = [
     <!-- Mobile Lang Selector -->
     <div class="lang-switcher-dropdown mobile-lang">
       <select class="lang-select" aria-label="Change language">
-        <option value={resolvePath('/')} selected={lang === "ru"}>Русский</option>
-        <option value={resolvePath('/en/')} selected={lang === "en"}>English</option>
-        <option value={resolvePath('/tr/')} selected={lang === "tr"}>Türkçe</option>
+        <option value={resolvePath("/")} selected={lang === "ru"}
+          >Русский</option
+        >
+        <option value={resolvePath("/en/")} selected={lang === "en"}
+          >English</option
+        >
+        <option value={resolvePath("/tr/")} selected={lang === "tr"}
+          >Türkçe</option
+        >
       </select>
     </div>
   </nav>
@@ -75,6 +93,7 @@ const links = [
     align-items: center;
     gap: 1.5rem;
     min-height: 76px;
+    padding-block: 0.75rem;
   }
   .brand {
     display: inline-flex;
@@ -214,9 +233,12 @@ const links = [
     background-repeat: no-repeat;
     background-position: right 0.45rem center;
     background-size: 0.75rem;
-    transition: border-color 0.3s ease, color 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      color 0.3s ease;
   }
-  .lang-select:hover, .lang-select:focus {
+  .lang-select:hover,
+  .lang-select:focus {
     outline: none;
     border-color: var(--clay);
     color: var(--brown);
@@ -249,7 +271,7 @@ const links = [
         burger?.setAttribute("aria-expanded", "false");
       }),
     );
-    
+
     // Redirection handler on language selection change
     header?.querySelectorAll(".lang-select").forEach((select) => {
       select.addEventListener("change", (e) => {
