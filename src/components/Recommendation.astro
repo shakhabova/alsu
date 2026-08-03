@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -7,52 +7,75 @@ const t = useTranslations(lang);
 
 <section class="section recommendation" id="recommendation">
   <div class="container recommendation-grid">
-    
     <div class="recommendation-text reveal">
-      <span class="eyebrow">{t('recommendation.eyebrow')}</span>
-      <h2 class="section-title">{t('recommendation.title')}</h2>
-      
+      <span class="eyebrow">{t("recommendation.eyebrow")}</span>
+      <h2 class="section-title">{t("recommendation.title")}</h2>
+
       <p class="lead recommendation-intro">
-        {t('recommendation.intro')}
+        {t("recommendation.intro")}
       </p>
-      
+
       <div class="doctor-card">
         <div class="doctor-card-header">
-          <h3 class="doctor-name">{t('recommendation.doctorName')}</h3>
-          <span class="doctor-badge">{t('recommendation.doctorTitle')}</span>
+          <h3 class="doctor-name">{t("recommendation.doctorName")}</h3>
+          <span class="doctor-badge">{t("recommendation.doctorTitle")}</span>
         </div>
         <p class="doctor-info">
-          {t('recommendation.doctorInfo')}
+          {t("recommendation.doctorInfo")}
         </p>
       </div>
-      
+
       <div class="contacts-block">
-        <h4 class="contacts-title">{t('recommendation.contactsTitle')}</h4>
+        <h4 class="contacts-title">{t("recommendation.contactsTitle")}</h4>
         <div class="contact-items">
           <div class="contact-item">
             <span class="contact-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
             </span>
-            <span class="contact-text">{t('recommendation.contactLocation')}</span>
+            <span class="contact-text"
+              >{t("recommendation.contactLocation")}</span
+            >
           </div>
-          
-          <a href={`tel:${t('recommendation.contactPhone').replace(/[^+\d]/g, '')}`} class="contact-item contact-link-phone">
+
+          <a
+            href={`tel:${t("recommendation.contactPhone").replace(/[^+\d]/g, "")}`}
+            class="contact-item contact-link-phone"
+          >
             <span class="contact-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                ></path>
               </svg>
             </span>
-            <span class="contact-text font-medium">{t('recommendation.contactPhone')}</span>
+            <span class="contact-text font-medium"
+              >{t("recommendation.contactPhone")}</span
+            >
           </a>
         </div>
       </div>
     </div>
-
-
-
   </div>
 </section>
 
@@ -158,7 +181,9 @@ const t = useTranslations(lang);
   }
 
   .contact-link-phone {
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
     align-self: flex-start;
   }
 
@@ -181,8 +206,6 @@ const t = useTranslations(lang);
   .font-medium {
     font-weight: 500;
   }
-
-
 
   .illust-frame {
     position: relative;
