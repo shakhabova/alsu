@@ -1,31 +1,13 @@
 ---
+import { reviews } from "../data/reviews";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const reviews = [
-  {
-    text: t("reviews.rev1.text"),
-    name: t("reviews.rev1.name"),
-    detail: t("reviews.rev1.detail"),
-  },
-  {
-    text: t("reviews.rev2.text"),
-    name: t("reviews.rev2.name"),
-    detail: t("reviews.rev2.detail"),
-  },
-  {
-    text: t("reviews.rev3.text"),
-    name: t("reviews.rev3.name"),
-    detail: t("reviews.rev3.detail"),
-  },
-  {
-    text: t("reviews.rev4.text"),
-    name: t("reviews.rev4.name"),
-    detail: t("reviews.rev4.detail"),
-  },
-];
+const readMore = { ru: "Читать полностью", en: "Read full review", tr: "Yorumun tamamını oku" };
+const readLess = { ru: "Свернуть", en: "Show less", tr: "Daha az göster" };
+const excerpt = (text: string) => text.length > 240 ? text.slice(0, text.lastIndexOf(" ", 240)) + "…" : text;
 
 const initialsSeparator = lang === "en" ? " & " : " и ";
 const getInitials = (name) => {
@@ -65,42 +47,30 @@ const getInitials = (name) => {
             >
               <article class="review-card">
                 <div class="review-card-header">
-                  <div
-                    class="rating"
-                    aria-label={lang === "en" ? "5 stars" : "5 звезд"}
-                  >
-                    {[1, 2, 3, 4, 5].map(() => (
-                      <svg
-                        class="star-icon"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <polygon
-                          points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                          fill="var(--clay)"
-                          stroke="var(--clay)"
-                        />
-                      </svg>
-                    ))}
-                  </div>
+
                   <span class="quote-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                       <path d="M11.192 15.757c0-.907-.188-1.754-.565-2.54.565-.544 1.13-1.27 1.694-2.177.566-.906.848-1.813.848-2.72 0-.996-.282-1.754-.848-2.276-.564-.52-1.27-.78-2.117-.78-.996 0-1.813.344-2.54 1.033-.727.689-1.09 1.57-1.09 2.64 0 .907.18 1.754.542 2.54-.564.543-1.11 1.258-1.638 2.143-.53.884-.794 1.79-.794 2.72 0 .996.28 1.753.84 2.275.56.521 1.252.782 2.078.782.996 0 1.833-.352 2.51-1.056.677-.703 1.016-1.576 1.016-2.618zm9 0c0-.907-.188-1.754-.566-2.54.565-.544 1.13-1.27 1.695-2.177.564-.906.847-1.813.847-2.72 0-.996-.283-1.754-.847-2.276-.565-.52-1.27-.78-2.118-.78-.995 0-1.812.344-2.539 1.033-.728.689-1.09 1.57-1.09 2.64 0 .907.18 1.754.543 2.54-.565.543-1.11 1.258-1.638 2.143-.53.884-.795 1.79-.795 2.72 0 .996.281 1.753.842 2.275.56.521 1.252.782 2.077.782.996 0 1.833-.352 2.511-1.056.676-.703 1.015-1.576 1.015-2.618z" />
                     </svg>
                   </span>
                 </div>
-                <blockquote class="review-text">{r.text}</blockquote>
-                <div class="review-author">
+                <details class="review-details">
+                  <summary>
+                    <span class="review-preview review-text" lang="ru">{excerpt(r.text)}</span>
+                    <span class="read-more">{readMore[lang]}</span>
+                    <span class="read-less">{readLess[lang]}</span>
+                  </summary>
+                  <blockquote class="review-text" lang="ru">
+                    {r.text.split(/\n+/).map((paragraph) => <p dir="auto">{paragraph}</p>)}
+                  </blockquote>
+                </details>
+                <div class="review-author" lang="ru">
                   <div class="avatar" aria-hidden="true">
                     {getInitials(r.name)}
                   </div>
                   <div class="author-meta">
                     <cite class="author-name">{r.name}</cite>
-                    <span class="author-detail">{r.detail}</span>
+                    {r.detail && <span class="author-detail">{r.detail}</span>}
                   </div>
                 </div>
               </article>
@@ -245,11 +215,12 @@ const getInitials = (name) => {
   .slide {
     flex: 0 0 min(460px, 86%);
     scroll-snap-align: start;
+    align-self: flex-start;
   }
 
   .review-card {
     position: relative;
-    height: 100%;
+    height: 36rem;
     padding: 2.8rem 2.4rem 2.4rem;
     border: 1px solid rgba(231, 221, 203, 0.12);
     border-radius: 24px;
@@ -274,18 +245,11 @@ const getInitials = (name) => {
   }
 
   .review-card-header {
+    flex-shrink: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 1.8rem;
-  }
-  .rating {
-    display: flex;
-    gap: 0.3rem;
-  }
-  .star-icon {
-    width: 15px;
-    height: 15px;
   }
   .quote-icon {
     width: 32px;
@@ -296,6 +260,31 @@ const getInitials = (name) => {
     justify-content: center;
   }
 
+  .review-details {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--clay) transparent;
+    margin-bottom: 2rem;
+    padding: 0.4rem;
+  }
+  .review-details summary { cursor: pointer; list-style: none; }
+  .review-details summary::-webkit-details-marker { display: none; }
+  .review-details summary:focus-visible { outline: 2px solid var(--clay); outline-offset: 6px; }
+  .review-preview {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+    overflow: hidden;
+  }
+  .read-more, .read-less { color: var(--clay); text-decoration: underline; text-underline-offset: 0.25em; }
+  .read-less, .review-details[open] .read-more, .review-details[open] .review-preview { display: none; }
+  .review-details[open] .read-less { display: inline; }
+  .review-details[open] .review-text { margin: 1rem 0 0; }
+  .review-text p { margin: 0 0 1rem; }
+  .review-text p:last-child { margin-bottom: 0; }
   .review-text {
     margin: 0 0 2rem;
     font-family: var(--font-display);
@@ -308,6 +297,7 @@ const getInitials = (name) => {
   }
 
   .review-author {
+    flex-shrink: 0;
     margin-top: auto;
     display: flex;
     align-items: center;
@@ -316,6 +306,7 @@ const getInitials = (name) => {
     border-top: 1px solid rgba(231, 221, 203, 0.1);
   }
   .avatar {
+    flex-shrink: 0;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -503,17 +494,14 @@ const getInitials = (name) => {
 
       prev.addEventListener("click", () => {
         goTo(current - 1);
-        resume();
       });
       next.addEventListener("click", () => {
         goTo(current + 1);
-        resume();
       });
       dots.forEach((d, i) =>
         d.addEventListener("click", () => {
           goTo(i);
-          resume();
-        }),
+          }),
       );
 
       // Keyboard support on the track itself.
@@ -521,54 +509,12 @@ const getInitials = (name) => {
         if (e.key === "ArrowRight") {
           e.preventDefault();
           goTo(current + 1);
-          resume();
-        }
+          }
         if (e.key === "ArrowLeft") {
           e.preventDefault();
           goTo(current - 1);
-          resume();
-        }
+          }
       });
-
-      // Gentle autoplay — paused on hover, focus or when the tab is hidden.
-      let timer = 0;
-      const AUTOPLAY = 6000;
-      const stop = () => {
-        clearInterval(timer);
-        timer = 0;
-      };
-      const start = () => {
-        if (reduce || timer) return;
-        timer = setInterval(() => {
-          if (document.hidden) return;
-          goTo(current + 1);
-        }, AUTOPLAY);
-      };
-      let idleTimer = 0;
-      const resume = () => {
-        stop();
-        clearTimeout(idleTimer);
-        idleTimer = setTimeout(start, 4000);
-      };
-
-      ["pointerenter", "focusin"].forEach((ev) =>
-        root.addEventListener(ev, stop),
-      );
-      ["pointerleave", "focusout"].forEach((ev) =>
-        root.addEventListener(ev, resume),
-      );
-
-      // Only autoplay once the carousel is actually on screen.
-      if ("IntersectionObserver" in window) {
-        new IntersectionObserver(
-          (entries) => {
-            entries.forEach((e) => (e.isIntersecting ? start() : stop()));
-          },
-          { threshold: 0.3 },
-        ).observe(root);
-      } else {
-        start();
-      }
 
       sync();
     });

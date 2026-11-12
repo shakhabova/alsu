@@ -25,55 +25,9 @@ const t = useTranslations(lang);
         </p>
       </div>
 
-      <div class="contacts-block">
-        <h4 class="contacts-title">{t("recommendation.contactsTitle")}</h4>
-        <div class="contact-items">
-          <div class="contact-item">
-            <span class="contact-icon">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-            </span>
-            <span class="contact-text"
-              >{t("recommendation.contactLocation")}</span
-            >
-          </div>
-
-          <a
-            href={`tel:${t("recommendation.contactPhone").replace(/[^+\d]/g, "")}`}
-            class="contact-item contact-link-phone"
-          >
-            <span class="contact-icon">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                ></path>
-              </svg>
-            </span>
-            <span class="contact-text font-medium"
-              >{t("recommendation.contactPhone")}</span
-            >
-          </a>
-        </div>
+      <div class="referral-block">
+        <p class="referral-note">{t("recommendation.referralNote")}</p>
+        <a class="referral-link" href="#contact">{t("recommendation.referralAction")}</a>
       </div>
     </div>
   </div>
@@ -152,102 +106,23 @@ const t = useTranslations(lang);
     margin: 0;
   }
 
-  .contacts-block {
-    width: 100%;
-  }
-
-  .contacts-title {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--clay);
-    margin: 0 0 1rem 0;
-    font-weight: 500;
-  }
-
-  .contact-items {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
+  .referral-note {
+    margin: 0 0 1.2rem;
     color: var(--brown-soft);
-    font-size: 0.96rem;
+    line-height: 1.65;
   }
-
-  .contact-link-phone {
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease;
-    align-self: flex-start;
-  }
-
-  .contact-link-phone:hover {
+  .referral-link {
     color: var(--brown);
-    transform: translateX(4px);
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    text-decoration-color: var(--taupe);
+    transition: text-decoration-color 0.2s ease;
   }
-
-  .contact-icon {
-    color: var(--clay);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .referral-link:hover {
+    text-decoration-color: currentColor;
   }
-
-  .contact-text {
-    line-height: 1.4;
-  }
-
-  .font-medium {
-    font-weight: 500;
-  }
-
-  .illust-frame {
-    position: relative;
-    width: 100%;
-    max-width: 360px;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    background: color-mix(in srgb, var(--sand) 30%, var(--cream) 70%);
-    border: 1px dashed var(--taupe);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2.5rem;
-    box-shadow: inset 0 0 20px rgba(58, 42, 30, 0.03);
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .illust-frame:hover {
-    transform: scale(1.03);
-  }
-
-  .illust-img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    mix-blend-mode: multiply; /* Blends illustration with the round background */
-    opacity: 0.85;
-  }
-
-  @media (max-width: 860px) {
-    .recommendation-grid {
-      grid-template-columns: 1fr;
-      gap: 3.5rem;
-    }
-
-    .recommendation-media {
-      order: -1; /* Display illustration first on mobile for editorial feel */
-    }
-
-    .illust-frame {
-      max-width: 260px;
-      padding: 1.8rem;
-    }
+  .referral-link:focus-visible {
+    outline: 2px solid var(--clay);
+    outline-offset: 5px;
   }
 </style>
