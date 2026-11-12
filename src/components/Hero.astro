@@ -200,6 +200,12 @@ const t = useTranslations(lang);
   }
 
   /* Responsive layout */
+  @media (min-width: 861px) {
+    .hero-content-inner {
+      padding-bottom: calc(clamp(4rem, 10vh, 8rem) + 4rem);
+    }
+  }
+
   @media (max-width: 860px) {
     .hero {
       grid-template-columns: 1fr;
@@ -208,8 +214,8 @@ const t = useTranslations(lang);
     }
 
     .hero-image {
-      height: 45vh;
-      min-height: 300px;
+      height: 50vh;
+      min-height: 340px;
       order: -1; /* image on top on mobile */
     }
 

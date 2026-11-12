@@ -294,7 +294,6 @@ const certificates = [
     </button>
     <div class="lightbox-content">
       <img id="lightbox-img" src="" alt="" />
-      <p id="lightbox-caption"></p>
     </div>
   </div>
 </section>
@@ -526,14 +525,6 @@ const certificates = [
     box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
   }
 
-  #lightbox-caption {
-    margin-top: 1.4rem;
-    color: var(--cream);
-    font-family: var(--font-display);
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
-    text-align: center;
-    letter-spacing: 0.02em;
-  }
 
   /* Carousel Navigation Controls */
   .carousel-control {
@@ -796,15 +787,13 @@ const certificates = [
     const lightboxImg = document.getElementById(
       "lightbox-img",
     ) as HTMLImageElement | null;
-    const lightboxCaption = document.getElementById("lightbox-caption");
     const closeBtn = document.querySelector(".lightbox-close");
 
-    if (!lightbox || !lightboxImg || !lightboxCaption || !closeBtn) return;
+    if (!lightbox || !lightboxImg || !closeBtn) return;
 
     const openLightbox = (src: string, title: string) => {
       lightboxImg.src = src;
       lightboxImg.alt = title;
-      lightboxCaption.textContent = title;
       lightbox.classList.add("active");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -817,7 +806,6 @@ const certificates = [
       setTimeout(() => {
         lightboxImg.src = "";
         lightboxImg.alt = "";
-        lightboxCaption.textContent = "";
       }, 400);
     };
 
